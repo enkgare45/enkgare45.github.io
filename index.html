@@ -407,12 +407,33 @@
 					  <div class="hero-form field field-grouped is-revealing">
 							
 	                            <div class="control control-expanded"> 
-	                                <input class="input" type="email" name="email" placeholder="Your best email&hellip;">
+	                                <input id="email" class="input" type="email" name="email" placeholder="Your best email&hellip;">
 	                            </div>
 	                            <div class="control">
-	                                <a action=mailto:odbmax45@gmail.com class="button button-primary button-block" href="#">Sign me up!</a>
+	                                <a action=mailto:odbmax45@gmail.com class="button button-primary button-block" onclick="saveSubscribe() href="#">Sign me up!</a>
 	                            </div>
-							
+							 function saveSubscribe(){
+										var id = $("#email").val();
+
+										if(!validateEmail(id)){
+											alert("Enter valid email");
+										}
+										else{
+											var timestamp = new Date().valueOf();
+											var obj = {};
+											obj[timestamp] = id;
+
+											firebase.database().ref('/').update(obj, function(error) {
+												if (error) {
+													alert("Invalid email");
+												} else {
+													$("#myModal").modal("hide");
+													alert("Thank you for subscribing. We will be in touch!");
+												}
+											});
+
+										}
+									}
 	                        </div>
                     </div>
                    
