@@ -412,29 +412,8 @@
 	                            <div class="control">
 	                                <a class="button button-primary button-block" onclick="saveSubscribe()">Sign me up!</a>
 	                            </div>
-function saveSubscribe() {
-		var id = $("#email").val();
 
-		if(!validateEmail(id)){
-			alert("Enter valid email");
-		}
-		else{
-			var timestamp = new Date().valueOf();
-			var obj = {};
-			obj[timestamp] = id;
-
-			firebase.database().ref('/').update(obj, function(error) {
-				if (error) {
-					alert("Invalid email");
-				} else {
-					$("#myModal").modal("hide");
-					alert("Thank you for subscribing. We will be in touch!");
-				}
-			});
-
-		}
-	}
-	                        </div>
+	                       </div>
                     </div>
                    
                 </div>
@@ -518,5 +497,28 @@ function saveSubscribe() {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
+	
+	function saveSubscribe() {
+		var id = $("#email").val();
+
+		if(!validateEmail(id)){
+			alert("Enter valid email");
+		}
+		else{
+			var timestamp = new Date().valueOf();
+			var obj = {};
+			obj[timestamp] = id;
+
+			firebase.database().ref('/').update(obj, function(error) {
+				if (error) {
+					alert("Invalid email");
+				} else {
+					$("#myModal").modal("hide");
+					alert("Thank you for subscribing. We will be in touch!");
+				}
+			});
+
+		}
+	}
 </body>
 </html>
