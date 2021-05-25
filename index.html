@@ -9,6 +9,31 @@
     <link rel="stylesheet" href="dist/css/style.css">
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 	<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+	<script>	
+	function saveSubscribe() {
+		var id = $("#email").val();
+
+		if(!validateEmail(id)){
+			alert("Enter valid email");
+		}
+		else{
+			var timestamp = new Date().valueOf();
+			var obj = {};
+			obj[timestamp] = id;
+
+			firebase.database().ref('/').update(obj, function(error) {
+				if (error) {
+					alert("Invalid email");
+				} else {
+					$("#myModal").modal("hide");
+					alert("Thank you for subscribing. We will be in touch!");
+				}
+			});
+
+		}
+	}
+	
+	</script>
 	<link rel="icon" href="Lorako icon small.png">
 	
 
@@ -497,32 +522,6 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
-	
-	
-<script>	
-	function saveSubscribe() {
-		var id = $("#email").val();
 
-		if(!validateEmail(id)){
-			alert("Enter valid email");
-		}
-		else{
-			var timestamp = new Date().valueOf();
-			var obj = {};
-			obj[timestamp] = id;
-
-			firebase.database().ref('/').update(obj, function(error) {
-				if (error) {
-					alert("Invalid email");
-				} else {
-					$("#myModal").modal("hide");
-					alert("Thank you for subscribing. We will be in touch!");
-				}
-			});
-
-		}
-	}
-	
-	</script>
 </body>
 </html>
